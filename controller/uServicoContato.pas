@@ -1,10 +1,9 @@
-unit uServicoContrato;
+unit uServicoContato;
 
 interface
 
-type IServicoContrato = interface
+type IServicoContato = interface
   function ValidaDocumento(Documento: string): Boolean;
-  procedure ListarDados;
   function TipoContato: string;
 end;
 

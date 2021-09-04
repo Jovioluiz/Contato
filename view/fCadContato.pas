@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Mask, Vcl.ComCtrls,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls, uclContato, StrUtils;
 
 type
   TcCadContato = class(TForm)
@@ -26,13 +26,17 @@ type
     procedure rbTipoClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
     procedure edtIdChange(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
+    FContato: TContato;
     procedure AlteraLabels;
     procedure Salvar;
     procedure LimparCampos;
+    procedure PreencheDadosEdicaoContato;
   public
     { Public declarations }
+    property Contato: TContato read FContato write FContato;
   end;
 
 var
@@ -41,8 +45,7 @@ var
 implementation
 
 uses
-  uManipuladorServicoContato, uServicoContatoFisica, uServicoContatoJuridica,
-  uclContato;
+  uManipuladorServicoContato, uServicoContatoFisica, uServicoContatoJuridica;
 
 {$R *.dfm}
 
@@ -82,6 +85,11 @@ begin
   end;
 end;
 
+procedure TcCadContato.FormShow(Sender: TObject);
+begin
+  PreencheDadosEdicaoContato;
+end;
+
 procedure TcCadContato.LimparCampos;
 begin
   edtId.Clear;
@@ -90,6 +98,21 @@ begin
   edtCidade.Clear;
   edtData.Date := Now;
   rbTipo.ItemIndex := 0;
+end;
+
+procedure TcCadContato.PreencheDadosEdicaoContato;
+begin
+  edtId.Text := FContato.ID.ToString;
+  edtNome.Text := FContato.Nome;
+  edtEndereco.Text := FContato.Endereco;
+  edtCpfCnpj.Text := FContato.CPF_CNPJ;
+  edtCidade.Text := FContato.Cidade;
+  edtData.Date := FContato.Data;
+
+  case AnsiIndexStr(FContato.TipoContato, ['F', 'J'])  of
+    0: rbTipo.ItemIndex := 0;
+    1: rbTipo.ItemIndex := 1;
+  end;
 end;
 
 procedure TcCadContato.rbTipoClick(Sender: TObject);
@@ -125,7 +148,6 @@ begin
     manipuladorContato.Free;
     dados.Free;
   end;
-
 end;
 
 end.

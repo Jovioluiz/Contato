@@ -3,7 +3,7 @@ program ProjetoContato;
 uses
   Vcl.Forms,
   fPrincipal in 'view\fPrincipal.pas' {frmPrincipal},
-  uServicoContrato in 'controller\uServicoContrato.pas',
+  uServicoContato in 'controller\uServicoContato.pas',
   uServicoContatoFisica in 'controller\uServicoContatoFisica.pas',
   uServicoContatoJuridica in 'controller\uServicoContatoJuridica.pas',
   uManipuladorServicoContato in 'model\uManipuladorServicoContato.pas',
@@ -18,7 +18,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
-  Application.CreateForm(TcCadContato, cCadContato);
   Application.CreateForm(TdmConexao, dmConexao);
   Application.CreateForm(TdmDados, dmDados);
   Application.Run;

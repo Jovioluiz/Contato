@@ -3,23 +3,17 @@ unit uServicoContatoJuridica;
 interface
 
 uses
-  uServicoContrato;
+  uServicoContato;
 
-type TServicoContatoJuridica = class(TInterfacedObject, IServicoContrato)
+type TServicoContatoJuridica = class(TInterfacedObject, IServicoContato)
   public
     function ValidaDocumento(Documento: string): Boolean;
-    procedure ListarDados;
     function TipoContato: string;
 end;
 
 implementation
 
 { TServicoContatoJuridica }
-
-procedure TServicoContatoJuridica.ListarDados;
-begin
-
-end;
 
 function TServicoContatoJuridica.TipoContato: string;
 begin

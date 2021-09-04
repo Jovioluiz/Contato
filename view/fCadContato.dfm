@@ -13,6 +13,7 @@ object cCadContato: TcCadContato
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
@@ -92,7 +93,7 @@ object cCadContato: TcCadContato
     Width = 121
     Height = 21
     Date = 44437.000000000000000000
-    Time = 0.490283449071284900
+    Time = 0.490283449071284800
     TabOrder = 4
   end
   object edtCpfCnpj: TMaskEdit

@@ -46,7 +46,7 @@ procedure TfrmPrincipal.btnAdicionarClick(Sender: TObject);
 var
   cadContato: TcCadContato;
 begin
-  cadContato := TcCadContato.Create(Self);
+  cadContato := TcCadContato.Create(nil);
 
   try
     cadContato.ShowModal;
