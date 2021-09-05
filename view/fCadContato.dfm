@@ -64,7 +64,7 @@ object cCadContato: TcCadContato
     Width = 121
     Height = 21
     TabOrder = 0
-    OnChange = edtIdChange
+    OnExit = edtIdExit
   end
   object edtNome: TEdit
     Left = 88

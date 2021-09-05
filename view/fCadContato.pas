@@ -25,8 +25,8 @@ type
     btnSalvar: TButton;
     procedure rbTipoClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
-    procedure edtIdChange(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure edtIdExit(Sender: TObject);
   private
     { Private declarations }
     FContato: TContato;
@@ -69,7 +69,7 @@ begin
   LimparCampos;
 end;
 
-procedure TcCadContato.edtIdChange(Sender: TObject);
+procedure TcCadContato.edtIdExit(Sender: TObject);
 var
   manipuladorContato: TManipuladorServicoContato;
 begin
@@ -87,6 +87,7 @@ end;
 
 procedure TcCadContato.FormShow(Sender: TObject);
 begin
+  edtData.Date := Now;
   PreencheDadosEdicaoContato;
 end;
 
@@ -94,6 +95,7 @@ procedure TcCadContato.LimparCampos;
 begin
   edtId.Clear;
   edtNome.Clear;
+  edtCpfCnpj.Clear;
   edtEndereco.Clear;
   edtCidade.Clear;
   edtData.Date := Now;
@@ -102,16 +104,19 @@ end;
 
 procedure TcCadContato.PreencheDadosEdicaoContato;
 begin
-  edtId.Text := FContato.ID.ToString;
-  edtNome.Text := FContato.Nome;
-  edtEndereco.Text := FContato.Endereco;
-  edtCpfCnpj.Text := FContato.CPF_CNPJ;
-  edtCidade.Text := FContato.Cidade;
-  edtData.Date := FContato.Data;
+  if Assigned(FContato) then
+  begin
+    edtId.Text := FContato.ID.ToString;
+    edtNome.Text := FContato.Nome;
+    edtEndereco.Text := FContato.Endereco;
+    edtCpfCnpj.Text := FContato.CPF_CNPJ;
+    edtCidade.Text := FContato.Cidade;
+    edtData.Date := FContato.Data;
 
-  case AnsiIndexStr(FContato.TipoContato, ['F', 'J'])  of
-    0: rbTipo.ItemIndex := 0;
-    1: rbTipo.ItemIndex := 1;
+    case AnsiIndexStr(FContato.TipoContato, ['F', 'J'])  of
+      0: rbTipo.ItemIndex := 0;
+      1: rbTipo.ItemIndex := 1;
+    end;
   end;
 end;
 

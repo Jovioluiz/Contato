@@ -40,6 +40,7 @@ object frmPrincipal: TfrmPrincipal
     TitleFont.Height = -11
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
+    OnDrawColumnCell = dbGridContatosDrawColumnCell
   end
   object btnAdicionar: TButton
     Left = 8

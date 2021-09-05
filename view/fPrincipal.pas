@@ -21,12 +21,15 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure ppMenu1Click(Sender: TObject);
     procedure Editar1Click(Sender: TObject);
+    procedure dbGridContatosDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
   private
     FManipulador: TManipuladorServicoContato;
     { Private declarations }
     procedure ListarContatos;
     procedure SetManipulador(const Value: TManipuladorServicoContato);
     procedure Excluir(ID: Integer);
+    function EstaDeAniversario(Data: TDateTime): Boolean;
   public
     { Public declarations }
     property Manipulador: TManipuladorServicoContato read FManipulador write SetManipulador;
@@ -60,9 +63,33 @@ begin
   ListarContatos;
 end;
 
+procedure TfrmPrincipal.dbGridContatosDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+  if FManipulador.Dados.cdsDados.RecordCount > 0 then
+  begin
+    if EstaDeAniversario(FManipulador.Dados.cdsDados.FieldByName('data').AsDateTime) then
+    begin
+      dbGridContatos.Canvas.Font.Color := clGreen;
+      dbGridContatos.DefaultDrawDataCell(Rect, dbGridContatos.Columns[DataCol].Field, state);
+    end;
+  end;
+end;
+
 procedure TfrmPrincipal.Editar1Click(Sender: TObject);
 begin
   FManipulador.EditarContato(FManipulador.Dados.cdsDados.FieldByName('id').AsInteger);
+end;
+
+function TfrmPrincipal.EstaDeAniversario(Data: TDateTime): Boolean;
+var
+  dia, diaAtual, mes, mesAtual, ano: Word;
+begin
+  DecodeDate(Data, ano, mes, dia);
+  DecodeDate(Now, ano, mesAtual, diaAtual);
+
+  Result := (dia = diaAtual) and (mes = mesAtual);
+
 end;
 
 procedure TfrmPrincipal.Excluir(ID: Integer);
