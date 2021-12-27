@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{3C53D443-325D-4E82-8989-80E8B72CF161}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="ProjetoContato.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="ClassesTestes\ProjetoTestes.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="ProjetoContato">
+        <MSBuild Projects="ProjetoContato.dproj"/>
+    </Target>
+    <Target Name="ProjetoContato:Clean">
+        <MSBuild Projects="ProjetoContato.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ProjetoContato:Make">
+        <MSBuild Projects="ProjetoContato.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ProjetoTestes">
+        <MSBuild Projects="ClassesTestes\ProjetoTestes.dproj"/>
+    </Target>
+    <Target Name="ProjetoTestes:Clean">
+        <MSBuild Projects="ClassesTestes\ProjetoTestes.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ProjetoTestes:Make">
+        <MSBuild Projects="ClassesTestes\ProjetoTestes.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="ProjetoContato;ProjetoTestes"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="ProjetoContato:Clean;ProjetoTestes:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="ProjetoContato:Make;ProjetoTestes:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
